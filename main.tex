@@ -10,12 +10,35 @@
 \def\costomizetitlepage{} % 使用自定义扉页titlepage.tex
 \def\footinfo{} % 将页码等信息放在页脚，不启用则放在页眉
 \def\tutor{}
-% \def\bleed{} % 出血
+ \def\bleed{} % 出血
 % \def\startonchapter{} % 以chapter作为一级标题，不启用则以part作为一级
 
 \input{formats}
 \usepackage{subfiles}
+\usepackage{listings}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
 \usepackage{xcolor}
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{lightgray!20},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    frame=single,
+    tabsize=2,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=false,
+    escapeinside={\%*}{*)}
+}
 \title{\mytitleen\\\mytitle}
 \author{\myauthor}
 \date{}
@@ -46,9 +69,12 @@
 }
 
 \ifdefined\startonchapter
-    \setcounter{tocdepth}{0}
+    % When starting numbering at chapter level, show sections (depth=1)
+    \setcounter{tocdepth}{1}
 \else
-    \setcounter{tocdepth}{-1}
+    % Default when using parts+chapters: show up to subsections (depth=2)
+    % Previously this was set to -1 which hides all entries from the TOC.
+    \setcounter{tocdepth}{2}
 \fi
 
 \tocgeo
@@ -61,13 +87,18 @@
 
 \ifdefined\tutor
     \include{chapters/info}
-    \include{chapters/template.tex}
+    \include{chapters/template}
 \fi
 
-\include{chapters/A1}
-\include{chapters/A2}
-\include{chapters/A3}
-\include{chapters/A4}
+% Include chapters A1 through A30 using a loop to avoid repetitive \include lines.
+% Note: the files `chapters/A1.tex` ... `chapters/A30.tex` must exist; \include will error if any are missing.
+\newcounter{aidx}
+\setcounter{aidx}{1}
+\loop
+    \ifnum\value{aidx}<31
+        \include{chapters/A\arabic{aidx}}
+        \stepcounter{aidx}
+\repeat
 
 \myendpage
 

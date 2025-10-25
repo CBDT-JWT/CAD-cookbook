@@ -164,11 +164,14 @@
     \titlespacing*{\chapter}{0em}{1em}{3em}
 \fi
 
-\newcommand{\parttitle}{部名}
+\newcommand{\parttitle}{学陪部}
 
 \usepackage{fancyhdr}
-% 章标记不出现chapter和序号
+% 恢复到之前的行为，但统一使用“奇数页样式”作为所有页的样式：
+% 让 \chaptermark 和 \sectionmark 都写入 \leftmark（便于在只有 section 的文档中显示标题），
+% 然后在页眉中间位置统一显示 \leftmark，页码显示在外侧角落。
 \renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
 % 去除页眉横线
 \renewcommand{\headrulewidth}{0pt}
 \ifdefined\footinfo
@@ -180,8 +183,10 @@
 \else
     \fancypagestyle{mystyle}{
         \fancyhf{}
+        % 外侧页眉显示页码（LE = left on even pages, RO = right on odd pages）
         \fancyhead[LE,RO]{\pagenumberfont\thepage}
-        \fancyhead[CE]{\headfont\mytitle}
+        % 无论奇偶页，中间都显示 \leftmark（即使用奇数页的样式）
+        \fancyhead[CE]{\headfont\leftmark}
         \fancyhead[CO]{\headfont\leftmark}
     }
 \fi

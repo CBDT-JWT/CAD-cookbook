@@ -1,1 +1,70 @@
 \section{编写教程}
+本章节介绍如何使用本模板编写电子电路与系统基础的学习资料。本章节不会出现在正式分发的文件中，仅供同学学习使用。
+\subsection{前期准备}
+\subsubsection{安装\LaTeX{}编译环境}
+在编写之前，请确保您已经安装了\LaTeX{}编译环境。具体请安装TeX Live， 同时安装VsCode并在其上安装LaTeX Workshop插件。安装后，需要将默认编译引擎更换为XeLatex。方法为：
+\begin{enumerate}
+  \item 打开VsCode，点击插件，点击Latex Workshop插件的设置按钮，选择“扩展设置”。
+    \item 找到“{\tt Latex-workshop > Latex > Recipe: Default}" 选项并将其修改为“{\tt latexmk (xelatex)}”。
+\end{enumerate}
+\subsubsection{安装git}
+我们将基于git进行协作。请首先在\url{https://github.com}注册一个账号，并将它发给我（江玮陶），我将将你拉进本项目的协作组。\footnote{如果由于网络问题你无法访问github，请参考\url{https://register.wallesspku.org}的解决方案。}然后请在你的电脑上安装git，具体请参考\url{https://docs.eesast.com/docs/tools/git}。对于mac用户，只需要在终端运行指令
+\begin{lstlisting}[language=bash]
+brew install git
+\end{lstlisting}
+即可安装git。安装git后，请按照如下方法配置ssh key以便于后续操作：
+\begin{enumerate}
+  \item 在终端中运行如下指令，生成ssh key：
+\begin{lstlisting}[language=bash]
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+\end{lstlisting}
+  其中请将\texttt{your\_email@example.com}替换为您在GitHub上注册的邮箱地址。
+    \item 在github网站上，进入Settings页面，选择SSH and GPG keys选项卡，点击New SSH key按钮。
+    \item 在Title栏中输入一个名称（例如“我的电脑”），然后将刚才生成的ssh key内容粘贴到Key栏中。ssh key内容可以通过运行如下指令获得：（其中路径可能因系统和配置不同而异，请根据实际情况修改）
+\begin{lstlisting}[language=bash]
+cat ~/.ssh/id_rsa.pub
+\end{lstlisting}
+    \item 点击Add SSH key按钮完成添加。
+\end{enumerate}
+
+\subsubsection{协作工作流}
+在完成上述步骤后，您就可以开始协作编写文档了。
+
+\noindent\emph{首次克隆项目}
+
+在您的电脑上打开终端，运行如下指令克隆项目到本地：
+\begin{lstlisting}[language=bash]
+git clone git@github.com:CBDT-JWT/CAD-cookbook.git
+
+\end{lstlisting}
+\noindent\emph{日常更新与提交}
+
+在日常编写过程中，请按照如下步骤进行更新与提交：
+\begin{enumerate}
+  \item 在开始编写之前，先运行如下指令拉取最新的代码：
+\begin{lstlisting}[language=bash]
+git pull origin master
+\end{lstlisting}
+    \item 在完成编写后，运行如下指令将修改添加到暂存区：
+\begin{lstlisting}[language=bash]
+git add .
+\end{lstlisting}
+    \item 运行如下指令提交修改：
+\begin{lstlisting}[language=bash]
+git commit -m "你的提交信息"
+\end{lstlisting}
+    \item 运行如下指令将修改推送到远程仓库：
+\begin{lstlisting}[language=bash]
+git push origin master
+\end{lstlisting}
+\end{enumerate}
+
+\noindent\emph{编译文档}
+
+如果你使用vscode中的latex workshop插件，可以使用快捷键{\tt ctrl+s} (mac 为{\tt cmd+s})直接编译文档。
+
+\subsection{\LaTeX{}基础}
+\begin{center}
+    {\Huge \textbf{TBD}}
+\end{center}
+
