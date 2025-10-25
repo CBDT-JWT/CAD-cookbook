@@ -1,0 +1,44 @@
+\documentclass[./main]{subfiles}
+
+\begin{document}
+
+\thispagestyle{empty}
+    % 封面图
+    \begin{center}
+        \includegraphics[width=\textwidth]{figure/cover.png}
+    \end{center}
+
+    % \vspace{-0.1cm} % 图片和标题之间留白
+% 标题和logo之间留白
+    \noindent
+    \begin{minipage}[b]{0.68\textwidth}
+        \raggedright
+        \begingroup
+            % \setlength{\fboxsep}{0pt}% no padding around colorbox
+            % \noindent
+            % \hspace*{}%
+            {\setlength{\fboxsep}{1pt}\noindent\colorbox{cyan}{\makebox[\textwidth][l]{\rule{0pt}{5mm}}}}%      \hspace*{\dimexpr\hoffset+1in+\oddsidemargin\relax}%
+        \endgroup
+        % \RequirePackage{xcolor}
+        
+
+        {\Huge\titlefont \mytitle \par}
+        \vspace{5mm}
+        {\cpfont \mycp \par}
+        \vspace{3mm}
+        {\large\signfont BY \myauthor \par}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[b]{0.29\textwidth}
+        \raggedleft
+        {\cpfont $\triangle $Created by \href{https://sora.com}{sora} \\
+        \par}
+        \vspace{8mm}
+
+        % \vspace{-1em} % 调整logo垂直位置，可微调
+        \includegraphics[width=\textwidth]{figure/logo.png}
+    \end{minipage}
+
+    \vfill
+
+\end{document}

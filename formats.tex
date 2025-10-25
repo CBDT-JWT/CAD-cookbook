@@ -1,0 +1,324 @@
+% 字体配置
+\input{font}
+
+% 首段缩进
+\usepackage{indentfirst}
+
+% 启用并隐藏超链接
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+
+% 页面配置
+\usepackage{geometry}
+% 主布局
+\newlength{\pw}
+\newlength{\ph}
+% A5 148*210
+\setlength{\pw}{148mm}
+\setlength{\ph}{210mm}
+
+\newlength{\bleedlen}
+\setlength{\bleedlen}{0mm}
+
+\newlength{\ptop}
+\newlength{\pbottom}
+\newlength{\pinner}
+\newlength{\pouter}
+\newlength{\phsep}
+\newlength{\pfskip}
+
+\setlength{\ptop}{17mm}
+\setlength{\pbottom}{23mm}
+\setlength{\pinner}{22mm}
+\setlength{\pouter}{13.5mm}
+\setlength{\phsep}{7mm}
+\setlength{\pfskip}{12mm}
+% 目录页布局
+\newcommand{\tocgeo}{}
+\ifdefined\bleed
+    \addtolength{\bleedlen}{3mm}
+    \addtolength{\pw}{\bleedlen}
+    \addtolength{\pw}{\bleedlen}
+    \addtolength{\ph}{\bleedlen}
+    \addtolength{\ph}{\bleedlen}
+    \addtolength{\ptop}{\bleedlen}
+    \addtolength{\pbottom}{\bleedlen}
+    \addtolength{\pinner}{\bleedlen}
+    \addtolength{\pouter}{\bleedlen}
+    \renewcommand{\tocgeo}{\newgeometry{left=40mm,right=40mm,top=\ptop,bottom=\pbottom}}
+\else
+    \renewcommand{\tocgeo}{\newgeometry{left=37mm,right=37mm,top=\ptop,bottom=\pbottom}}
+\fi
+\ifdefined\footinfo
+    \geometry{
+        paperwidth=\pw,
+        paperheight=\ph,
+        top=\ptop,
+        bottom=\pbottom,
+        outer=\pouter,
+        inner=\pinner,
+        footskip=\pfskip,
+    }
+\else
+    \geometry{
+        paperwidth=\pw,
+        paperheight=\ph,
+        top=\pbottom,
+        bottom=\ptop,
+        outer=\pouter,
+        inner=\pinner,
+        headsep=\phsep,
+    }
+\fi
+
+% 空白页
+\newcommand{\blankpage}{
+    \newpage
+    \makebox{}
+    \thispagestyle{empty}
+    \newpage
+}
+
+% 空白段
+\newcommand{\blankline}{
+    ~\
+}
+
+% 目录
+% 目录参数
+\counterwithout{section}{chapter}
+\counterwithout{subsection}{section}
+% 目录格式
+\usepackage{titletoc}
+% 章节符号
+\newcommand{\myss}{\textit{\textbf{\S}}}
+% 目录内标题格式
+\ifdefined\startonchapter
+    % 目录标题
+    \renewcommand{\contentsname}{
+        {\hspace{10mm}}目\hspace{0.75em}录
+    }
+    \titlecontents{chapter}
+    [0em]
+    {\vspace{2em}\Large\tocchapter}
+    {\makebox[10mm][l]{\myss\hspace{0.1em}\large\uppercase\expandafter{\romannumeral\thecontentslabel}}}
+    {}
+    {\hspace{4mm}\tocpage\large\contentspage}[\vspace{1.6em}]
+
+    \titlecontents{section}
+    [21mm]
+    {\tocsection}
+    {\tocsectlabel Ch \hspace{0.1em}\makebox[1em][c]{\thecontentslabel}}{}
+    {\hspace{5mm}\tocpage\contentspage}[\vspace{0.1em}]
+\else
+    % 目录标题
+    \renewcommand{\contentsname}{
+    {\hfill}目\hspace{0.75em}录{\hfill}
+    \vspace{7mm}
+    }
+    \titlecontents{part}
+    [0em]
+    {\Large\tocpart}
+    {}
+    {}
+    {\hfill\pagenumberfont\contentspage}[\vspace{1.6em}]
+
+    \titlecontents{chapter}
+    [2em]
+    {\tocchapter}
+    {\thecontentslabel\quad}
+    {}
+    {\hfill\pagenumberfont\contentspage}[]
+\fi
+
+\makeatletter
+% 页码宽度
+\renewcommand{\contentspage}[1][\thecontentspage]{\hb@xt@\@pnumwidth{#1\hfil}}
+\renewcommand{\@pnumwidth}{7mm}
+\ifdefined\startonchapter
+    % 每章重置尾注编号
+    \@addtoreset{endnote}{chapter}  % Reset endnote numbering every new chapter
+\else
+    \@addtoreset{endnote}{part}  % Reset endnote numbering every new part
+    \@addtoreset{chapter}{part}  % Reset chapter numbering every new part
+\fi
+\makeatother
+% 每页重置脚注编号
+\usepackage{footnpag}
+
+% 正文标题格式
+\usepackage{titlesec}
+
+\ifdefined\startonchapter
+    \titleformat{\chapter}{\huge\chapterfont}{}{1em}{\thispagestyle{empty}}
+    \titleformat{\section}{\sectionfont}{Chapter~\thesection}{1em}{}
+    \titleformat{\subsection}{\subsectionfont}{0\thesubsection}{1em}{}
+
+    \titlespacing*{\chapter}{0em}{5em}{\chapterblank}
+    \titlespacing*{\section}{2em}{1.5\baselineskip}{.5\baselineskip}
+    \titlespacing*{\subsection}{2em}{.5\baselineskip}{.5\baselineskip}
+\else
+    \titleformat{\part}[display]{\centering\Huge\partfont}{\thepart}{1.5pc}{\thispagestyle{empty}}
+    \titleformat{\chapter}{\centering\Large\chapterfont}{第\zhnumber{\thechapter}章}{1em}{}
+    \titlespacing{\part}{0em}{5cm}{0em}
+    \titlespacing*{\chapter}{0em}{1em}{3em}
+\fi
+
+\newcommand{\parttitle}{部名}
+
+\usepackage{fancyhdr}
+% 章标记不出现chapter和序号
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{#1}}{}}
+% 去除页眉横线
+\renewcommand{\headrulewidth}{0pt}
+\ifdefined\footinfo
+    \fancypagestyle{mystyle}{
+        \fancyhf{}
+        \fancyfoot[LE]{\pagenumberfont\thepage\quad\headfont\parttitle}
+        \fancyfoot[RO]{\headfont\leftmark\quad\pagenumberfont\thepage}
+    }
+\else
+    \fancypagestyle{mystyle}{
+        \fancyhf{}
+        \fancyhead[LE,RO]{\pagenumberfont\thepage}
+        \fancyhead[CE]{\headfont\mytitle}
+        \fancyhead[CO]{\headfont\leftmark}
+    }
+\fi
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[LE]{\pagenumberfont\thepage\quad\headfont\parttitle}
+    \fancyfoot[RO]{\pagenumberfont\thepage}
+}
+\usepackage{emptypage}
+
+% 尾注
+\usepackage{endnotes}
+\renewcommand{\notesname}{注：}
+\renewcommand{\enoteheading}{\section*{\notesname}\mbox{}\par\vskip-\baselineskip}
+
+% 以下为非通用内容
+
+% 故事完
+\newcommand{\storyend}[1][完]{
+    \blankline
+
+    \blankline
+
+    \hfill {\bfseries #1} \hspace{5em}
+
+    \vfill
+}
+
+% 设置quote区中的字体
+\usepackage{etoolbox}
+\AtBeginEnvironment{quote}{\quotefont}
+
+% 设置署名
+\newcommand{\signature}{
+    \vfill
+
+    \hfill {\subsectionfont by\myauthor} \hspace{5em}
+
+    \hfill {\subsectionfont 2024.08.09} \hspace{4.8em}
+
+    \vspace{2cm}
+}
+
+% 特殊符号和字体
+\newcommand{\splitdot}{\dotfont ·}
+
+\newcommand{\spell}[1]{{\spellfont #1}}
+
+\newcommand{\tempsymbol}{{\tempfont℃}}
+
+\newcommand{\chsline}{\hspace{0.15em}\rule[0.35em]{1.7em}{0.03em}\hspace{0.15em}}
+
+% 章前注的参数
+\newlength{\chapterblank}
+\setlength{\chapterblank}{3cm}
+\newlength{\prenoteblank}
+\setlength{\prenoteblank}{3em}
+\newcommand{\doublelinechapter}{{\huge\vspace{-\baselineskip}}}
+
+% 章前注
+\newcommand{\prenotes}[1]{
+    \vspace{2em}
+    {\prenotefont #1}
+    % #1
+    \vspace{0.5em}
+    \vspace{\prenoteblank}
+}
+
+% 扉页
+\newcommand{\mytitlepage}{
+    \thispagestyle{empty}
+    % 封面图
+    \begin{center}
+        \includegraphics[width=\textwidth]{figure/cover.png}
+    \end{center}
+
+    % \vspace{-0.1cm} % 图片和标题之间留白
+% 标题和logo之间留白
+    \noindent
+    \begin{minipage}[b]{0.68\textwidth}
+        \raggedright
+        \begingroup
+            % \setlength{\fboxsep}{0pt}% no padding around colorbox
+            % \noindent
+            % \hspace*{}%
+            {\setlength{\fboxsep}{1pt}\noindent\colorbox{cyan}{\makebox[\textwidth][l]{\rule{0pt}{5mm}}}}%      \hspace*{\dimexpr\hoffset+1in+\oddsidemargin\relax}%
+        \endgroup
+        % \RequirePackage{xcolor}
+        
+
+        {\Huge\titlefont \mytitle \par}
+        \vspace{5mm}
+        {\cpfont \mycp \par}
+        \vspace{3mm}
+        {\large\signfont BY \myauthor \par}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[b]{0.29\textwidth}
+        \raggedleft
+        {\cpfont $\triangle $Created by \href{https://sora.com}{sora} \\
+        \par}
+        \vspace{8mm}
+
+        % \vspace{-1em} % 调整logo垂直位置，可微调
+        \includegraphics[width=\textwidth]{figure/logo.png}
+    \end{minipage}
+
+    \vfill
+}
+
+
+% 尾页
+\newcommand{\myendpage}{
+    \newpage
+
+    \thispagestyle{empty}
+
+    \
+
+    \vfill
+
+    \begin{minipage}{100mm}
+
+        有任何改进建议请联系：\href{mailto:jiangwt23@mails.tsinghua.edu.cn}{jiangwt23@mails.tsinghua.edu.cn}\\
+
+        感谢您对电子系学生科协的支持！
+
+    \end{minipage}
+    \vspace{5mm}
+}
+
+% 调整行距为1.618
+\usepackage{setspace}
+\setstretch{1.618}
+% 段距增加弹性
+\setlength{\parskip}{0em plus .1\baselineskip}
+
+% 插入图片
+\usepackage{graphicx}
+\usepackage{float}

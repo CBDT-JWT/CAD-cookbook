@@ -1,0 +1,74 @@
+\documentclass[10pt,openany]{book}
+
+% 基本内容
+\newcommand{\mytitleen}{CAD cook-book}
+\newcommand{\mytitle}{CAD口袋书}
+\newcommand{\myauthor}{清华大学电子系学培部}
+\newcommand{\mycp}{面向《电子电路与系统基础》（A）的电路仿真参考}
+\newcommand{\sampletext}{}
+% \def\freefont{} % 使用免费商业字体
+\def\costomizetitlepage{} % 使用自定义扉页titlepage.tex
+\def\footinfo{} % 将页码等信息放在页脚，不启用则放在页眉
+\def\tutor{}
+% \def\bleed{} % 出血
+% \def\startonchapter{} % 以chapter作为一级标题，不启用则以part作为一级
+
+\input{formats}
+\usepackage{subfiles}
+\usepackage{xcolor}
+\title{\mytitleen\\\mytitle}
+\author{\myauthor}
+\date{}
+
+\begin{document}
+
+\pagestyle{mystyle}
+
+\ifdefined\costomizetitlepage
+    \subfile{titlepage}
+\else
+    \maketitle
+\fi
+
+\clearpage
+
+{\
+    \vfill
+    \thispagestyle{empty}
+    \Large
+    \setstretch{2}
+    
+    本文档由\href{https://www.eesast.com}{清华大学电子系学生科协}学培部编写和维护，旨在为学习《电子电路与系统基础》的同学提供CAD学习参考。
+
+    ~\
+
+    \vfill
+}
+
+\ifdefined\startonchapter
+    \setcounter{tocdepth}{0}
+\else
+    \setcounter{tocdepth}{-1}
+\fi
+
+\tocgeo
+\tableofcontents
+\thispagestyle{empty}
+
+\cleardoublepage
+\setcounter{page}{1}
+\restoregeometry
+
+\ifdefined\tutor
+    \include{chapters/info}
+    \include{chapters/template.tex}
+\fi
+
+\include{chapters/A1}
+\include{chapters/A2}
+\include{chapters/A3}
+\include{chapters/A4}
+
+\myendpage
+
+\end{document}

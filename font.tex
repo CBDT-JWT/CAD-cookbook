@@ -1,0 +1,78 @@
+\ifdefined\freefont
+    \usepackage{fontspec}
+    \setmainfont{EB Garamond}
+    \newfontfamily\sbien{EB Garamond SemiBold Italic}
+    \newfontfamily\pagenfont{EB Garamond Medium Italic}
+    \newfontfamily\prenotefont{EB Garamond Medium}
+    \newfontfamily\cpfont{EB Garamond Italic}
+
+    \newfontfamily\normal{Source Han Serif CN}
+    \newfontfamily\semib{Source Han Serif CN SemiBold} % 小标宋
+    \newfontfamily\bold{Source Han Serif CN Bold} % 大标宋
+    \newfontfamily\heavy{Source Han Serif CN Heavy} % 粗宋
+
+    \newfontfamily\shusongen{FZShuSong-Z01S} % 书宋
+    \newfontfamily\kaitien{FZKai-Z03S} % 楷体
+    \newfontfamily\heitien{FZHei-B01S} % 黑体
+
+    \newfontfamily\titlefonten{EB Garamond 12 Italic}[LetterSpace=1]
+    \newfontfamily\namefont{Scriptina}[LetterSpace=5]
+
+    \usepackage[fontset=none]{ctex}
+    \setCJKmainfont{Source Han Serif CN}[BoldFont={Source Han Serif CN SemiBold}, ItalicFont=FZKai-Z03]
+
+    \newCJKfontfamily\songti{Source Han Serif CN}
+    \newCJKfontfamily\xbsong{Source Han Serif CN SemiBold} % 小标宋
+    \newCJKfontfamily\dbsong{Source Han Serif CN Bold} % 大标宋
+    \newCJKfontfamily\cusong{Source Han Serif CN Heavy} % 粗宋
+
+    \newCJKfontfamily\shusong{FZShuSong-Z01}[ItalicFont=FZKai-Z03] % 书宋
+    \newCJKfontfamily\fangsong{FZFangSong-Z02} % 仿宋
+    \newCJKfontfamily\heiti{FZHei-B01} % 黑体
+    \newCJKfontfamily\kaiti{FZKai-Z03} % 楷体
+
+    \newcommand{\titlefont}{\titlefonten\fangsong}
+    \newcommand{\signfont}{\writing}
+
+    \newcommand{\tocmain}{\dbsong}
+    \newcommand{\tocpart}{\xbsong\sbien}
+    \newcommand{\tocchapter}{\xbsong}
+    \newcommand{\tocchaplabel}{\itshape}
+    \newcommand{\tocpage}{\pagenfont}
+
+    \newcommand{\partfont}{\dbsong\bold}
+    \newcommand{\chapterfont}{\dbsong\bold}
+    \newcommand{\sectionfont}{\xbsong\semib}
+    \newcommand{\subsectionfont}{\songti\normal}
+    \newcommand{\pagenumberfont}{\tocpage}
+    \newcommand{\headfont}{\fangsong}
+    \newcommand{\quotefont}{\itshape}
+    \newcommand{\writing}{\rmfamily\xbsong}
+    \newcommand{\spellfont}{\quotefont}
+    \newcommand{\dotfont}{\shusong}
+    \newcommand{\tempfont}{\normal}
+\else
+    \usepackage{ctex}
+    \newcommand{\prenotefont}{\rmfamily}
+    \newcommand{\titlefont}{}
+    \newcommand{\signfont}{\ttfamily}
+    \newcommand{\cpfont}{\ttfamily}
+
+    \newcommand{\tocmain}{\bfseries}
+    \newcommand{\tocpart}{\bfseries}
+    \newcommand{\tocchapter}{\itshape}
+    \newcommand{\tocchaplabel}{\itshape}
+    \newcommand{\tocpage}{\ttfamily}
+
+    \newcommand{\partfont}{\bfseries\itshape}
+    \newcommand{\chapterfont}{\bfseries}
+    \newcommand{\sectionfont}{\bfseries}
+    \newcommand{\subsectionfont}{\sffamily}
+    \newcommand{\pagenumberfont}{\tocpage}
+    \newcommand{\headfont}{\ttfamily}
+    \newcommand{\quotefont}{\itshape}
+    \newcommand{\writing}{\rmfamily\ttfamily}
+    \newcommand{\spellfont}{\quotefont}
+    \newcommand{\dotfont}{\rmfamily}
+    \newcommand{\tempfont}{\rmfamily}
+\fi
