@@ -68,3 +68,70 @@ git push origin master
     {\Huge \textbf{TBD}}
 \end{center}
 
+\subsubsection{段落格式}
+每个chapter文件应当独立作为一个{\tt section}, 即在段落开头使用
+\begin{lstlisting}[language=TeX]
+\section{章节标题}
+\end{lstlisting}
+来定义章节标题。章节内可以使用{\tt subsection}和{\tt subsubsection}来定义子章节。每个自然段前后应当空一行，段和图片之间也要空一行。
+
+\subsubsection{数学公式}
+数学公式可以使用美元符号{\tt \$}来包裹行内公式，例如：{\tt \$E=mc\^{}2\$}会渲染为$E=mc^2$。行间公式可以使用{\tt \$\$ ... \$\$}来包裹，例如：
+\begin{lstlisting}[language=TeX]
+$$
+\begin{cases}
+\nabla \cdot \mathbf{E} = \frac {\rho} {\varepsilon_0} \\
+\nabla \cdot \mathbf{B} = 0 \\
+\nabla \times \mathbf{E} = - \frac {\partial \mathbf{B}} {\partial t} \\
+\nabla \times \mathbf{B} = \mu_0 \mathbf{J} + \mu_0 \varepsilon_0 \frac {\partial \mathbf{E}} {\partial t}
+\end{cases}
+$$
+\end{lstlisting}
+
+会渲染为：
+$$
+\begin{cases}
+\nabla \cdot \mathbf{E} = \frac {\rho} {\varepsilon_0} \\
+\nabla \cdot \mathbf{B} = 0 \\ 
+\nabla \times \mathbf{E} = - \frac {\partial \mathbf{B}} {\partial t} \\
+\nabla \times \mathbf{B} = \mu_0 \mathbf{J} + \mu_0 \varepsilon_0 \frac {\partial \mathbf{E}} {\partial t}
+\end{cases}
+$$
+
+常用的数学符号可以参考\url{https://zhuanlan.zhihu.com/p/472919794}。
+
+\subsubsection{表格}
+表格可以使用{\tt table}环境来创建，例如：
+\begin{lstlisting}[language=TeX]
+\begin{table}[htbp]
+    \centering
+    \caption{示例表格} %表格标题
+    \label{tab:example} %表格标签，方便引用
+    \begin{tabular}{|l|c|r|} %这里l表示左对齐，c表示居中，r表示右对齐
+    \toprule %表格顶部横线
+    Header 1 & Header 2 & Header 3 \\
+    \midrule %表格中部横线
+    Cell 1 & Cell 2 & Cell 3 \\
+    Cell 4 & Cell 5 & Cell 6 \\
+    \bottomrule %表格底部横线
+    \end{tabular}
+\end{table}
+\end{lstlisting}
+会渲染为：
+
+\begin{table}[htbp]
+    \centering
+    \caption{示例表格}
+    \label{tab:example}
+\begin{tabular}{l|c r} %这里l表示左对齐，c表示居中，r表示右对齐
+
+\toprule %表格顶部横线
+Header 1 & Header 2 & Header 3 \\
+\midrule %表格中部横线
+Cell 1 & Cell 2 & Cell 3 \\
+Cell 4 & Cell 5 & Cell 6 \\
+\bottomrule %表格底部横线
+\end{tabular}
+\end{table}
+
+可以使用{\tt \textbackslash ref\{tab:example\}}的方式在正文中引用表格，例如“如表\ref{tab:example}所示”。
