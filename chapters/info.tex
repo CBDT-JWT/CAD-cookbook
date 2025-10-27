@@ -134,4 +134,131 @@ Cell 4 & Cell 5 & Cell 6 \\
 \end{tabular}
 \end{table}
 
-可以使用{\tt \textbackslash ref\{tab:example\}}的方式在正文中引用表格，例如“如表\ref{tab:example}所示”。
+可以使用{\tt \textbackslash ref\{tab:example\}}的方式在正文中引用表格，例如“如表\ref{tab:example}所示”。在实际使用中，可以使用\url{https://www.tablesgenerator.com}方便地制作表格。
+
+\subsubsection{插入图片}
+图片可以使用{\tt figure}环境来插入，例如：
+\begin{lstlisting}[language=TeX]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{chapters/figure/example.png} %插入图片，width参数控制图片宽度，chapters/figure/example.png为图片路径
+    \caption{示例图片} %图片标题
+    \label{fig:example} %图片标签，方便引用
+\end{figure}
+\end{lstlisting}
+
+会渲染为图\ref{fig:example1}和\ref{fig:example2}所示。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{chapters/figure/example.png}
+    \caption{示例图片}
+    \label{fig:example}
+\end{figure}
+可以使用{\tt \textbackslash ref\{fig:example\}}的方式在正文中引用图片，例如“如图\ref{fig:example}所示”。请将图片文件放置在项目的{\tt figure}文件夹中。如果想要并列多张图片，可以使用minipage环境，例如：
+\begin{lstlisting}[language=TeX]
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.45\textwidth}% 设置图片宽度为文本宽度的45%
+        \centering
+        \includegraphics[width=.9\textwidth]{chapters/figure/example1.jpeg}
+        \caption{示例图片1}
+        \label{fig:example1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=.9\textwidth]{chapters/figure/example2.jpeg}
+        \caption{示例图片2}
+        \label{fig:example2}
+    \end{minipage}
+\end{figure}
+\end{lstlisting}
+会渲染为：
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{chapters/figure/example1.jpeg}
+        \caption{示例图片1}
+        \label{fig:example1}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{chapters/figure/example2.jpeg}
+        \caption{示例图片2}
+        \label{fig:example2}
+    \end{minipage}
+\end{figure}
+
+\noindent\emph{电路图绘制}\quad 为了统一，我们采用circuitikz宏包绘制电路图。具体使用方法请参考\url{https://www.jiangwt.org/docs-html/documents/circuitikz/}。下面是一个简单的例子：
+\begin{lstlisting}[language=TeX]
+\begin{figure}[htbp]
+    \centering
+    \resizebox{0.6\textwidth}{!}{%
+    \begin{circuitikz}
+    \tikzstyle{every node}=[font=\LARGE]
+    \draw (3.25,10) to[european resistor,l={ \LARGE $R_s$}] (5.5,10);
+    \draw (9.25,9) to[Tnpn, transistors/scale=1.19] (9.25,11);
+    \draw (5.5,10) to[C] (7.5,10);
+    \node at (7.5,10) [circ] {};
+    \draw (7.5,10) to[european resistor,l={ \LARGE $R_{B1}$}] (7.5,12.5);
+    \draw (7.5,7.5) to[european resistor,l={ \LARGE $R_{B2}$}] (7.5,10);
+    \draw (7.5,10) to[short] (8.25,10);
+
+    \draw (7.5,7.5) to (7.5,7.25) node[ground]{};
+    \draw (9.25,9) to[european resistor,l={ \LARGE $R_E$}] (9.25,7);
+    \draw (9.25,7) to (9.25,6.75) node[ground]{};
+    \draw (9.25,11) to[european resistor,l={ \LARGE $R_C$}] (9.25,13.25);
+    \draw (8.75,13.25) to[short] (9.75,13.25);
+    \draw (7,12.5) to[short] (8,12.5);
+    \draw (3.25,10) to[american voltage source] (3.25,8.5);
+    \draw (3.25,8.5) to (3.25,8.25) node[ground]{};
+    \draw (9.25,10.75) to[C] (11.25,10.75);
+    \draw (11.25,10.75) to[european resistor,l={ \LARGE $R_L$}] (11.25,8);
+    \draw (11.25,10.75) to[short, -o] (12,10.75) ;
+
+    \draw (11.25,8.75) to (11.25,8.5) node[ground]{};
+    \end{circuitikz}
+    }%
+    \caption{样例电路}
+    \label{fig: example-circuit}
+\end{figure}
+\end{lstlisting}
+
+
+\begin{figure}[h!]
+    \centering
+    \resizebox{0.6\textwidth}{!}{%
+    \begin{circuitikz}
+    \tikzstyle{every node}=[font=\LARGE]
+    \draw (3.25,10) to[european resistor,l={ \LARGE $R_s$}] (5.5,10);
+    \draw (9.25,9) to[Tnpn, transistors/scale=1.19] (9.25,11);
+    \draw (5.5,10) to[C] (7.5,10);
+    \node at (7.5,10) [circ] {};
+    \draw (7.5,10) to[european resistor,l={ \LARGE $R_{B1}$}] (7.5,12.5);
+    \draw (7.5,7.5) to[european resistor,l={ \LARGE $R_{B2}$}] (7.5,10);
+    \draw (7.5,10) to[short] (8.25,10);
+
+    \draw (7.5,7.5) to (7.5,7.25) node[ground]{};
+    \draw (9.25,9) to[european resistor,l={ \LARGE $R_E$}] (9.25,7);
+    \draw (9.25,7) to (9.25,6.75) node[ground]{};
+    \draw (9.25,11) to[european resistor,l={ \LARGE $R_C$}] (9.25,13.25);
+    \draw (8.75,13.25) to[short] (9.75,13.25);
+    \draw (7,12.5) to[short] (8,12.5);
+    \draw (3.25,10) to[american voltage source] (3.25,8.5);
+    \draw (3.25,8.5) to (3.25,8.25) node[ground]{};
+    \draw (9.25,10.75) to[C] (11.25,10.75);
+    \draw (11.25,10.75) to[european resistor,l={ \LARGE $R_L$}] (11.25,8);
+    \draw (11.25,10.75) to[short, -o] (12,10.75) ;
+
+    \draw (11.25,8.75) to (11.25,8.5) node[ground]{};
+    \end{circuitikz}
+    }%
+    \caption{样例电路}
+    \label{fig: example-circuit}
+\end{figure}
+
+会渲染为图\ref{fig: example-circuit}所示。实际使用中，circuitikz直接写代码绘制电路图可能比较麻烦，建议使用\url{https://tikzmaker.com/editor}在线编辑器绘制电路图，然后将生成的代码复制到文档中。
